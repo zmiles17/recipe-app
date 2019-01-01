@@ -1,31 +1,64 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './reset.css';
 import './index.css';
 
 const DirectoryView = (props) => (
-    <div>
-        <SearchForm changeHandler={props.changeHandler} searchVal={props.searchVal} selectRecipes={props.selectRecipes} />
-        {props.recipes.map((recipe, i) => <RecipeCard recipes={recipe} key={i} />)}
-        <div className='results'></div>
+    <div className='directory-view'>
+        <SearchForm
+            changeHandler={props.changeHandler}
+            searchVal={props.searchVal}
+            selectRecipes={props.selectRecipes} />
+        {props.recipes
+            .map((recipe, i) =>
+                <RecipeCard
+                    recipes={recipe}
+                    userClick={props.userClick}
+                    key={i} />)}
     </div>
 )
 
 const SearchForm = (props) => (
-    <form>
-        <input placeholder='Search Text Here' onChange={props.changeHandler} value={props.searchVal} />
-        <button onClick={props.selectRecipes}>SEARCH</button>
+    <form className='search-form'>
+        <input
+            placeholder='Search Text Here'
+            onChange={props.changeHandler}
+            value={props.searchVal} />
+        <button
+            className='search-button'
+            onClick={props.selectRecipes}>
+            SEARCH
+        </button>
     </form>
 )
 
 const RecipeCard = (props) => (
-    <div>{props.recipes.name}</div>
+    <div
+        className='recipe-card'
+        onClick={props.userClick}>
+        {props.recipes.name.toUpperCase()}
+    </div>
 )
 
 const DetailView = (props) => (
-    <div>
-        {props.recipe.name},
-        {props.recipe.ingredients},
-        {props.recipe.instructions}
+    <div className='detail-view'>
+        <h2>{props.recipe.name.toUpperCase()}</h2>
+        <ul className='ingredient-list'>
+            <h3>INGREDIENTS</h3>
+            {props.recipe.ingredients
+                .map((e, i) =>
+                    <li 
+                    className='ingredient-item'
+                    key={i}>{e}</li>)}
+        </ul>
+        <ul className='instruction-list'>
+            <h3>INSTRUCTIONS</h3>
+            {props.recipe.instructions
+                .map((e, i) =>
+                    <li 
+                    className='instruction-item'
+                    key={i}>{e}</li>)}
+        </ul>
     </div>
 )
 
@@ -124,7 +157,8 @@ class App extends React.Component {
             }
         ],
         searchVal: '',
-        selectedRecipes: []
+        selectedRecipes: [],
+        clickedRecipe: 0
     }
 
     handleChange = (e) => {
@@ -134,28 +168,35 @@ class App extends React.Component {
     selectRecipes = (e) => {
         e.preventDefault();
         const searchVal = this.state.searchVal.toLowerCase();
-        const filteredRecipes = this.state.recipes.filter(recipe => recipe.name.toLowerCase().includes(searchVal));
+        const filteredRecipes = this.state.recipes
+            .filter(recipe => recipe.name.toLowerCase().includes(searchVal));
         this.setState({ selectedRecipes: filteredRecipes })
     }
 
-    // userClick = (e) => {
-
-    // }
+    userClick = (e) => {
+        const clickedRecipe = this.state.recipes
+            .filter(recipe => recipe.name === e.target.innerHTML)
+        this.setState({ clickedRecipe: clickedRecipe[0].id - 1 })
+    }
 
     render() {
         const recipeList = this.state.selectedRecipes;
         return (
-            <React.Fragment>
-            <DirectoryView
-                recipes={recipeList}
-                changeHandler={this.handleChange}
-                searchVal={this.state.searchVal}
-                selectRecipes={this.selectRecipes}
-            />
-            <DetailView
-                recipe={this.state.recipes[0]}
-            />
-            </React.Fragment>
+            <div className="App">
+                <header>
+                    <h1>Recipe App</h1>
+                </header>
+                <DirectoryView
+                    recipes={recipeList}
+                    changeHandler={this.handleChange}
+                    searchVal={this.state.searchVal}
+                    selectRecipes={this.selectRecipes}
+                    userClick={this.userClick}
+                />
+                <DetailView
+                    recipe={this.state.recipes[this.state.clickedRecipe]}
+                />
+            </div>
         )
     }
 }
