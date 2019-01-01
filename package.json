@@ -2,7 +2,7 @@
   "name": "recipe-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zmiles17.github.io/recipe-app/",
+  "homepage": "https://zmiles17.github.io/recipe-app",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
