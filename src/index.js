@@ -47,17 +47,17 @@ const DetailView = (props) => (
             <h3>INGREDIENTS</h3>
             {props.recipe.ingredients
                 .map((e, i) =>
-                    <li 
-                    className='ingredient-item'
-                    key={i}>{e}</li>)}
+                    <li
+                        className='ingredient-item'
+                        key={i}>{e}</li>)}
         </ul>
         <ul className='instruction-list'>
             <h3>INSTRUCTIONS</h3>
             {props.recipe.instructions
                 .map((e, i) =>
-                    <li 
-                    className='instruction-item'
-                    key={i}>{e}</li>)}
+                    <li
+                        className='instruction-item'
+                        key={i}>{e}</li>)}
         </ul>
     </div>
 )
@@ -175,7 +175,7 @@ class App extends React.Component {
 
     userClick = (e) => {
         const clickedRecipe = this.state.recipes
-            .filter(recipe => recipe.name === e.target.innerHTML)
+            .filter(recipe => recipe.name.toUpperCase() === e.target.innerHTML)
         this.setState({ clickedRecipe: clickedRecipe[0].id - 1 })
     }
 
