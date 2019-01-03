@@ -79,9 +79,9 @@ class App extends React.Component {
             },
             {
                 id: 3,
-                name: 'turkey3',
-                ingredients: ['turkey', 'mustard', 'greens', 'celery', 'potato'],
-                instructions: ['pre-heat over to 350', 'tickle the turkey', 'cut some celery']
+                name: 'Ceviche',
+                ingredients: ['tilapia', 'cilantro', 'tomatoes', 'yellow onion', 'limes', 'jalapeno', 'salt'],
+                instructions: ['Dice all tilapia and place in a bowl.', 'Squeeze lime juice over all the tilapia (enough to cover it) and add salt.', 'Let the tilapia sit in lime juice for about 2 hrs.', 'Dice all other ingredients and set aside.', 'After 2 hrs, mix tilapia and diced ingredients.', 'Enjoy with tortilla chips or tostadas :)']
             },
             {
                 id: 4,
